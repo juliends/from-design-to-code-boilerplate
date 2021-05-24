@@ -11,4 +11,16 @@ class MoviesController < ApplicationController
       format.text { render partial: 'list.html', locals: { movies: @movies }}
     end
   end
+
+  def update
+    @movie = Movie.find(params[:id])
+    @movie.update(movie_params)
+    render partial: 'movies/movie_infos', locals: { movie: @movie }
+  end
+
+  private
+
+  def movie_params
+    params.require(:movie).permit(:title, :year)
+  end
 end
